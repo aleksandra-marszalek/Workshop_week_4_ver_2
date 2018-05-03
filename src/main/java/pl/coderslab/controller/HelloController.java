@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import pl.coderslab.DTO.CountryDto;
 import pl.coderslab.DTO.LeagueDto;
+import pl.coderslab.DTO.TeamDto;
 
 @RestController
 public class HelloController {
@@ -38,4 +39,17 @@ public class HelloController {
         }
         return "some result - leagues";
     }
+
+    @RequestMapping("/get-teams/{id}")
+    public String getTeamsAction(@PathVariable int id) {
+        String url = "https://apifootball.com/api/?action=get_standings&league_id="+id+"&APIkey=f0df14e90abe953b07ba9c6225c38f9b86a341d8c001f9428b07ab9d9267a41d";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<TeamDto[]> responseTeams = restTemplate.getForEntity(url, TeamDto[].class);
+        TeamDto[] teams = responseTeams.getBody();
+        for (TeamDto team: teams) {
+            logger.info("teams {}", team);
+        }
+        return "some result - teams";
+    }
+
 }
