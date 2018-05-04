@@ -1,9 +1,12 @@
 package pl.coderslab.model;
 
+import java.util.Set;
+
 public class League {
     private long id;
     private String name;
     private Country country;
+    private Set<Team> teams;
 
     public League() {
 

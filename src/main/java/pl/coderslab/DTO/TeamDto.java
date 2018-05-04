@@ -8,15 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
     public class TeamDto {
         @JsonProperty("league_id") long apiLeagueId;
         @JsonProperty("team_name") String teamName;
+        @JsonProperty("overall_league_position") int leaguePosition;
 
 
         public TeamDto() {
 
         }
 
-        public TeamDto(long apiLeagueId, String teamName) {
+        public TeamDto(long apiLeagueId, String teamName, int leaguePosition) {
             this.apiLeagueId = apiLeagueId;
             this.teamName = teamName;
+            this.leaguePosition = leaguePosition;
         }
 
         public long getApiLeagueId() {
@@ -35,11 +37,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
             this.teamName = teamName;
         }
 
+        public int getLeaguePosition() {
+            return leaguePosition;
+        }
+
+        public void setLeaguePosition(int leaguePosition) {
+            this.leaguePosition = leaguePosition;
+        }
+
         @Override
         public String toString() {
             return "TeamDto{" +
                     "apiLeagueId=" + getApiLeagueId() +
-                    ", teamName='" + getTeamName()+ '\'' +
+                    ", teamName='" + getTeamName()+ ", leaguePosition='" + getLeaguePosition()+ '\'' +
                     '}';
         }
     }
