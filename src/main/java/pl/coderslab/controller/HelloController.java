@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import pl.coderslab.DTO.CountryDto;
+import pl.coderslab.DTO.EventDto;
 import pl.coderslab.DTO.LeagueDto;
 import pl.coderslab.DTO.TeamDto;
+import pl.coderslab.model.Event;
 
 @RestController
 public class HelloController {
@@ -50,6 +52,19 @@ public class HelloController {
             logger.info("teams {}", team);
         }
         return "some result - teams";
+    }
+
+    @RequestMapping("/get-events/{id}")
+    public String getEventsAction(@PathVariable int id) {
+        String url = "https://apifootball.com/api/?action=get_events&from=2016-10-30&to=2016-11-01&league_id="+id+
+                "&APIkey=f0df14e90abe953b07ba9c6225c38f9b86a341d8c001f9428b07ab9d9267a41d";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<EventDto[]> responseEvents = restTemplate.getForEntity(url, EventDto[].class);
+        EventDto[] events = responseEvents.getBody();
+        for (EventDto event: events) {
+            logger.info("events {}", event);
+        }
+        return "some result - events";
     }
 
 }
