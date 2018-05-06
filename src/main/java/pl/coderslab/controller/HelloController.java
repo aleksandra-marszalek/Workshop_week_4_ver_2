@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import pl.coderslab.DAO.CountryDao;
 import pl.coderslab.DAO.UserDao;
 import pl.coderslab.DTO.*;
 import pl.coderslab.model.Event;
@@ -27,6 +28,19 @@ public class HelloController {
         }
         return "some result";
     }
+
+    @RequestMapping("/create-countries")
+    public String createCountries() {
+        String url = "https://apifootball.com/api/?action=get_countries& APIkey=f0df14e90abe953b07ba9c6225c38f9b86a341d8c001f9428b07ab9d9267a41d";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<CountryDto[]> responseCountries = restTemplate.getForEntity(url, CountryDto[].class);
+        CountryDto[] countries = responseCountries.getBody();
+        for (CountryDto country: countries) {
+            CountryDao.create(country);
+        }
+        return "some result- created countries";
+    }
+
 
     @RequestMapping("/get-leagues/{id}")
     public String getLeaguesAction(@PathVariable int id) {
