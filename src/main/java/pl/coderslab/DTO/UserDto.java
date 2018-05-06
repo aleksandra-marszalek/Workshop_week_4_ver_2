@@ -5,20 +5,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDto {
     @JsonIgnoreProperties(ignoreUnknown = true)
-        @JsonProperty("id") long id;
+//        @JsonProperty("id") long id;
         @JsonProperty("name") String name;
         @JsonProperty("surname") String surname;
         @JsonProperty("email") String email;
         @JsonProperty("password") String password;
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+//
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -55,8 +55,7 @@ public class UserDto {
     @Override
         public String toString() {
             return "UserDto{" +
-                    "id=" + getId() +
-                    ", name='" + getName() + '\'' +
+                    "name='" + getName() + '\'' +
                     ", surname='" + getSurname() + '\'' +
                     ", email='" + getEmail() + '\'' +
                     ", password='" + getPassword() + '\'' +

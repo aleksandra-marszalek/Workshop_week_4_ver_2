@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import pl.coderslab.DAO.UserDao;
 import pl.coderslab.DTO.*;
 import pl.coderslab.model.Event;
 
@@ -76,4 +77,16 @@ public class HelloController {
         return "some result - users";
     }
 
+    @RequestMapping("/create-users")
+    public String createUsersAction() {
+        String url = "http://localhost:8080/api/fake-users";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<UserDto[]> responseEvents = restTemplate.getForEntity(url, UserDto[].class);
+        UserDto[] users = responseEvents.getBody();
+        for (UserDto user : users) {
+            logger.info("users {}", user);
+            UserDao.create(user);
+        }
+        return "Created result - users";
+    }
 }
